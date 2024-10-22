@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row g-8">
+    <div class="py-9 text-center">
+        <h3 class="mb-3">Listado de inscritos</h3>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Carrera Ingenieria de Sistemas de la Universidad Publica de El Alto</p>
+        </div>
+        <div class="table table-bordered">
+            <a href="{{ url_for('agregar')}}" class="btn btn-outline-success btn-lg">Agregar</a>
+        </div>
+        
+        {% if lista %}
+        <div class="overflow-hidden col-lg-8 mx-auto">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Turno</th>
+                        <th scope="col">Seminario</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in lista %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ item.fecha }}</td>
+                        <td>{{ item.nombre }}</td>
+                        <td>{{ item.apellido }}</td>
+                        <td>{{ item.turno }}</td>
+                        <td>{{ item.seminario }}</td>
+                        <td>
+                            <a href="{{ url_for('editar',dato=item) }}">Editar{{ item }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('eliminar') }}">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>  
+        <div class="table table-bordered">
+            <a href="{{ url_for('vaciar')}}" class="btn btn-outline-danger btn-lg">Vaciar</a>
+        </div>
+        {% else %}
+        <div class="overflow-hidden col-lg-8 mx-auto">
+            <div class="alert alert-success" role="alert">
+                <p>Lista vacia, agregar registro por favor.</p>
+            </div>
+        </div>
+        {% endif %}
+            
+        
+    </div>
+    
+</div>
+{% endblock %}
